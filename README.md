@@ -15,30 +15,20 @@ Example Call:
 
     def run_microservice():
       """runs the microservice"""
-    
-      while True:
-          time.sleep(1)
-          file = open("microservice.txt", 'w')
-          file.write("request")
-          file.close()
-          time.sleep(1)
-  
-          file = open("microservice.txt", 'r+')
-          line = file.readline()
-          file.close()
-          time.sleep(1)
-  
-          if line == "request":
-              pokemon = get_pokemon_micro() 
-              outfile = open("microservice.txt", 'w')
-              poke_name = pokemon.strip('"')
-              outfile.write(poke_name)
-              outfile.close()
-              break
-          else:
-              print("Microservice Error.")
-  
-      return poke_name  
+      
+        while True:
+            with open("microservice.txt", "r+") as file:
+                line  = file.readline()
+
+            if line == "request":
+                pokemon = get_pokemon_micro() # calls the microservice
+                outfile = open("microservice.txt", 'w')
+                poke_name = pokemon.strip('"')
+                outfile.write(poke_name)
+                outfile.close()
+                
+    run_microservice()
+      
 
 # Recieving Data:
 
